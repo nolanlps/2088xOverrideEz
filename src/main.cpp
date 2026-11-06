@@ -12,8 +12,8 @@ ez::Drive chassis(
     {-4, -5, -6},  // Right Chassis Ports (negative port will reverse it!)
 
     7,      // IMU Port
-    4.125,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
-    343);   // Wheel RPM = cartridge * (motor gear / wheel gear)
+    2.75,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
+    450);   // Wheel RPM = cartridge * (motor gear / wheel gear)
 
 // Uncomment the trackers you're using here!
 // - `8` and `9` are smart ports (making these negative will reverse the sensor)
@@ -22,7 +22,7 @@ ez::Drive chassis(
 // - `4.0` is the distance from the center of the wheel to the center of the robot
 // ez::tracking_wheel horiz_tracker(8, 2.75, 4.0);  // This tracking wheel is perpendicular to the drive wheels
 // ez::tracking_wheel vert_tracker(9, 2.75, 4.0);   // This tracking wheel is parallel to the drive wheels
-
+ez::tracking_wheel horiz_tracker(15, 2.75, 0);  // This tracking wheel is perpendicular to the drive wheels
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -38,7 +38,7 @@ void initialize() {
   // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
   //  - change `back` to `front` if the tracking wheel is in front of the midline
   //  - ignore this if you aren't using a horizontal tracker
-  // chassis.odom_tracker_back_set(&horiz_tracker);
+  chassis.odom_tracker_back_set(&horiz_tracker);
   // Look at your vertical tracking wheel and decide if it's to the left or right of the center of the robot
   //  - change `left` to `right` if the tracking wheel is to the right of the centerline
   //  - ignore this if you aren't using a vertical tracker
@@ -242,13 +242,12 @@ void ez_template_extras() {
 void opcontrol() {
   // This is preference to what you like to drive on
   chassis.drive_brake_set(MOTOR_BRAKE_COAST);
-
   while (true) {
     // Gives you some extras to make EZ-Template ezier
     ez_template_extras();
 
-    chassis.opcontrol_tank();  // Tank control
-    // chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
+    // chassis.opcontrol_tank();  // Tank control
+  chassis.opcontrol_arcade_standard(ez::SPLIT);   // Standard split arcade
     // chassis.opcontrol_arcade_standard(ez::SINGLE);  // Standard single arcade
     // chassis.opcontrol_arcade_flipped(ez::SPLIT);    // Flipped split arcade
     // chassis.opcontrol_arcade_flipped(ez::SINGLE);   // Flipped single arcade
@@ -256,6 +255,34 @@ void opcontrol() {
     // . . .
     // Put more user control code here!
     // . . .
+
+    // el toggles
+if (master.get_digital(DIGITAL_RIGHT)) {
+OneToggle;
+		} else if (master.get_digital(DIGITAL_Y)) {
+DoubleToggle;
+		} else {
+      target = target;
+    }
+
+    // gg frickin claw
+		if (master.get_digital(DIGITAL_R1)) {
+claw.move_voltage(12000);
+		} else if (master.get_digital(DIGITAL_R2)) {
+claw.move_voltage(-12000);
+		} else {
+claw.move_voltage(0);
+    }
+
+    // el lift
+if (master.get_digital(DIGITAL_L2)) {
+lift.move_voltage(-12000);
+} else if (master.get_digital(DIGITAL_L1)) {
+lift.move_voltage(12000);
+		} else {
+lift.move_voltage(0);
+		}
+
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
