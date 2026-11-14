@@ -7,10 +7,10 @@ static int lastWristPos = 0;
 
 void flipperLoop() {
     
-    const double kp = 3;
-    const double kd = 15;
+    const double kp = 8;
+    const double kd = 6;
 
-    int pos = wristRotation.get_position();
+    int pos = wrist.get_position();
     if (pos == PROS_ERR) return;
 
     double error = target - pos;
@@ -29,15 +29,17 @@ void setTarget(int degrees) {
 
 bool flipped = false;
 void wristFlip() {
-    if (bool flipped = false) {
-    setTarget(100);
-    } else if (bool flipped = true) {
+    if (!flipped) {
+    setTarget(90);
+    flipped = !flipped;
+    } else if (flipped) {
     setTarget(0);
+    flipped = !flipped;
     }
 }
 
 void flipUnflip() {
-    setTarget(100);
+    setTarget(90);
     pros::delay(300);
     setTarget(0);
 }

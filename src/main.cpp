@@ -8,8 +8,8 @@
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {1, 2, 3},     // Left Chassis Ports (negative port will reverse it!)
-    {-4, -5, -6},  // Right Chassis Ports (negative port will reverse it!)
+    {-7, -8},     // Left Chassis Ports (negative port will reverse it!)
+    {5, 4},  // Right Chassis Ports (negative port will reverse it!)
 
     7,      // IMU Port
     2.75,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -51,7 +51,7 @@ void initialize() {
   //  - change `left` to `right` if the tracking wheel is to the right of the centerline
   //  - ignore this if you aren't using a vertical tracker
   // chassis.odom_tracker_left_set(&vert_tracker);
-
+lift.set_brake_mode(MOTOR_BRAKE_HOLD);
   // Configure your chassis controls
   chassis.opcontrol_curve_buttons_toggle(true);   // Enables modifying the controller curve with buttons on the joysticks
   chassis.opcontrol_drive_activebrake_set(0.0);   // Sets the active brake kP. We recommend ~2.  0 will disable.
@@ -265,9 +265,9 @@ void opcontrol() {
     // . . .
 
     // el toggles
-if (master.get_digital(DIGITAL_RIGHT)) {
+if (master.get_digital_new_press(DIGITAL_RIGHT)) {
 wristFlip();
-		} else if (master.get_digital(DIGITAL_Y)) {
+		} else if (master.get_digital_new_press(DIGITAL_Y)) {
 flipUnflip();
 		}
 
@@ -282,13 +282,21 @@ claw.move_voltage(0);
 
     // el lift
 if (master.get_digital(DIGITAL_L2)) {
-lift.move_voltage(-12000);
+lift.move_voltage(-6000);
 } else if (master.get_digital(DIGITAL_L1)) {
 lift.move_voltage(12000);
 		} else {
 lift.move_voltage(0);
 		}
 
+if (master.get_digital(DIGITAL_B)) {
+intake.move_voltage(-12000);
+claw.move_voltage(-12000);
+} else if (master.get_digital(DIGITAL_DOWN)) {
+intake.move_voltage(12000);
+		} else {
+intake.move_voltage(0);
+		}
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
