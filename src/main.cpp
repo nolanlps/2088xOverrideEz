@@ -29,12 +29,20 @@ ez::tracking_wheel horiz_tracker(15, 2.75, 0);  // This tracking wheel is perpen
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+
+void pidLoops(void* param) {
+	while (true) {
+		flipperLoop();
+		pros::delay(10);
+	}
+}
+
 void initialize() {
   // Print our branding over your terminal :D
   ez::ez_template_print();
 
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
-
+	pros::Task pidTask(pidLoops, nullptr, "PID Tasks");
   // Look at your horizontal tracking wheel and decide if it's in front of the midline of your robot or behind it
   //  - change `back` to `front` if the tracking wheel is in front of the midline
   //  - ignore this if you aren't using a horizontal tracker
@@ -258,12 +266,10 @@ void opcontrol() {
 
     // el toggles
 if (master.get_digital(DIGITAL_RIGHT)) {
-OneToggle;
+wristFlip();
 		} else if (master.get_digital(DIGITAL_Y)) {
-DoubleToggle;
-		} else {
-      target = target;
-    }
+flipUnflip();
+		}
 
     // gg frickin claw
 		if (master.get_digital(DIGITAL_R1)) {
