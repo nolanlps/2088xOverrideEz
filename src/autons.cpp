@@ -15,9 +15,9 @@ const int SWING_SPEED = 110;
 ///
 void default_constants() {
   // P, I, D, and Start I
-  chassis.pid_drive_constants_set(20.0, 0.0, 100.0);         // Fwd/rev constants, used for odom and non odom motions
+  chassis.pid_drive_constants_set(20.0, 0.0, 160.0);         // Fwd/rev constants, used for odom and non odom motions
   chassis.pid_heading_constants_set(11.0, 0.0, 20.0);        // Holds the robot straight while going forward without odom
-  chassis.pid_turn_constants_set(3.0, 0.05, 20.0, 15.0);     // Turn in place constants
+  chassis.pid_turn_constants_set(3.8, 0.05, 23.5, 15.0);     // Turn in place constants
   chassis.pid_swing_constants_set(6.0, 0.0, 65.0);           // Swing constants
   chassis.pid_odom_angular_constants_set(6.5, 0.0, 52.5);    // Angular control for odom motions
   chassis.pid_odom_boomerang_constants_set(5.8, 0.0, 32.5);  // Angular control for boomerang motions
@@ -48,6 +48,85 @@ void default_constants() {
   chassis.pid_angle_behavior_set(ez::shortest);  // Changes the default behavior for turning, this defaults it to the shortest path there
 }
 
+
+void left3pin() {
+    chassis.odom_xyt_set(-5_in, 3_in, -30.5_deg);
+  intake.move_voltage(12000);
+  pros::delay(500);
+  intake.move_voltage(0);
+  chassis.pid_drive_set(12, DRIVE_SPEED);
+  claw.move_voltage(-12000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(-90, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-10, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+  pros::delay(100);
+  wristFlip(); // score preload
+  pros::delay(300);
+  chassis.pid_wait_quick_chain();
+
+
+  chassis.pid_drive_set(6, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+  wristFlip();
+  chassis.pid_turn_set(-144, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-17.2, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-6, 30);
+  pros::delay(280);
+  claw.move_voltage(12000);
+  chassis.pid_wait_quick_chain(); //grab second pin
+
+
+  chassis.pid_turn_set(-10, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  lift.move_voltage(9000);
+  pros::delay(600);
+  lift.move_voltage(0);
+  chassis.pid_drive_set(-14.5, 80);
+  chassis.pid_wait_quick_chain();
+  lift.move_voltage(-3000);
+  pros::delay(400);
+  claw.move_voltage(-12000);
+pros::delay(500);
+
+  chassis.pid_drive_set(13, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(-51, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-20.5, DRIVE_SPEED);
+    chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-8, 60);
+  pros::delay(300);
+  claw.move_voltage(12000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-6, DRIVE_SPEED);
+    lift.move_voltage(9000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(83, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+
+  pros::delay(200);
+  lift.move_voltage(0);
+  chassis.pid_drive_set(-19, 80);
+  chassis.pid_wait_quick_chain();
+  lift.move_voltage(-6000);
+  pros::delay(400);
+  claw.move_voltage(-12000);
+
+
+  // chassis.pid_drive_set(8, DRIVE_SPEED);
+  // chassis.pid_wait_quick_chain();
+  // chassis.pid_turn_set(45, TURN_SPEED);
+  // chassis.pid_wait_quick_chain();
+}
+
+
+
+
+
 ///
 // Drive Example
 ///
@@ -60,11 +139,11 @@ void drive_example() {
   chassis.pid_drive_set(24_in, DRIVE_SPEED, true);
   chassis.pid_wait();
 
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
-  chassis.pid_wait();
+  // chassis.pid_drive_set(-12_in, DRIVE_SPEED);
+  // chassis.pid_wait();
 
-  chassis.pid_drive_set(-12_in, DRIVE_SPEED);
-  chassis.pid_wait();
+  // chassis.pid_drive_set(-12_in, DRIVE_SPEED);
+  // chassis.pid_wait();
 }
 
 ///
@@ -77,11 +156,6 @@ void turn_example() {
   chassis.pid_turn_set(90_deg, TURN_SPEED);
   chassis.pid_wait();
 
-  chassis.pid_turn_set(45_deg, TURN_SPEED);
-  chassis.pid_wait();
-
-  chassis.pid_turn_set(0_deg, TURN_SPEED);
-  chassis.pid_wait();
 }
 
 ///

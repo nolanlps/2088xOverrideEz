@@ -2,6 +2,10 @@
 
 void default_constants();
 
+void left3pin();
+
+
+
 void drive_example();
 void turn_example();
 void drive_and_turn();

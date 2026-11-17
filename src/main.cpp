@@ -11,7 +11,7 @@ ez::Drive chassis(
     {-7, -8},     // Left Chassis Ports (negative port will reverse it!)
     {5, 4},  // Right Chassis Ports (negative port will reverse it!)
 
-    7,      // IMU Port
+    10,      // IMU Port
     2.75,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     450);   // Wheel RPM = cartridge * (motor gear / wheel gear)
 
@@ -22,7 +22,7 @@ ez::Drive chassis(
 // - `4.0` is the distance from the center of the wheel to the center of the robot
 // ez::tracking_wheel horiz_tracker(8, 2.75, 4.0);  // This tracking wheel is perpendicular to the drive wheels
 // ez::tracking_wheel vert_tracker(9, 2.75, 4.0);   // This tracking wheel is parallel to the drive wheels
-ez::tracking_wheel horiz_tracker(15, 2.75, 0);  // This tracking wheel is perpendicular to the drive wheels
+ez::tracking_wheel horiz_tracker(21, 2.0, 0);  // This tracking wheel is perpendicular to the drive wheels
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -66,6 +66,7 @@ lift.set_brake_mode(MOTOR_BRAKE_HOLD);
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
+    {"left3\n\nscore 3 on one pin bro", left3pin},
       {"Drive\n\nDrive forward and come back", drive_example},
       {"Turn\n\nTurn 3 times.", turn_example},
       {"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
@@ -219,7 +220,8 @@ void ez_template_extras() {
     // Trigger the selected autonomous routine
     if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
       pros::motor_brake_mode_e_t preference = chassis.drive_brake_get();
-      autonomous();
+      // autonomous(); //this is actually what it should be
+   turn_example();
       chassis.drive_brake_set(preference);
     }
 

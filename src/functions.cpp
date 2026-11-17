@@ -1,14 +1,14 @@
 #include "main.h"
 
-static constexpr double MAX_MV = 12000.0; // move_voltage limit (millivolts)
+static constexpr double MAX_MV = 5000.0; // move_voltage limit (millivolts)
 int target = 0;
 
 static int lastWristPos = 0;
 
 void flipperLoop() {
     
-    const double kp = 8;
-    const double kd = 6;
+    const double kp = 7;
+    const double kd = 5;
 
     int pos = wrist.get_position();
     if (pos == PROS_ERR) return;
@@ -24,13 +24,13 @@ void flipperLoop() {
 }
 
 void setTarget(int degrees) {
-    target = degrees * 100;
+    target = degrees * 10;
 }
 
 bool flipped = false;
 void wristFlip() {
     if (!flipped) {
-    setTarget(90);
+    setTarget(80);
     flipped = !flipped;
     } else if (flipped) {
     setTarget(0);
@@ -39,7 +39,7 @@ void wristFlip() {
 }
 
 void flipUnflip() {
-    setTarget(90);
+    setTarget(80);
     pros::delay(300);
     setTarget(0);
 }
