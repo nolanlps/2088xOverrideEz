@@ -3,8 +3,8 @@
 void default_constants();
 
 void left3pin();
-
-
+void right3pin();
+void skills();
 
 void drive_example();
 void turn_example();

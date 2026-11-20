@@ -7,7 +7,7 @@ static int lastWristPos = 0;
 
 void flipperLoop() {
     
-    const double kp = 7;
+    const double kp = 20;
     const double kd = 5;
 
     int pos = wrist.get_position();
@@ -30,7 +30,7 @@ void setTarget(int degrees) {
 bool flipped = false;
 void wristFlip() {
     if (!flipped) {
-    setTarget(80);
+    setTarget(34);
     flipped = !flipped;
     } else if (flipped) {
     setTarget(0);
