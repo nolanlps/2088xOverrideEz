@@ -66,10 +66,11 @@ lift.set_brake_mode(MOTOR_BRAKE_HOLD);
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-                {"skills\n\nlike left but iwth matchlads", skills},
             {"right3\n\nscore 3 on one pin bro", right3pin},
-        {"left3\n\nscore 3 on one pin bro", left3pin},
+                {"skills\n\nlike left but iwth matchlads", skills},
 
+
+            {"left3\n\nscore 3 on one pin bro", left3pin},
 
       {"Drive\n\nDrive forward and come back", drive_example},
       {"Turn\n\nTurn 3 times.", turn_example},
@@ -271,11 +272,11 @@ void opcontrol() {
     // . . .
 
     // el toggles
-if (master.get_digital_new_press(DIGITAL_RIGHT)) {
-wristFlip();
-		} else if (master.get_digital_new_press(DIGITAL_Y)) {
-flipUnflip();
-		}
+if (master.get_digital(DIGITAL_RIGHT)) {
+setTarget(37);
+		} else {
+      setTarget(0);
+    }
 
     // gg frickin claw
 		if (master.get_digital(DIGITAL_R1)) {
@@ -298,8 +299,9 @@ lift.move_voltage(0);
 if (master.get_digital(DIGITAL_B)) {
 intake.move_voltage(-12000);
 claw.move_voltage(-12000);
-} else if (master.get_digital(DIGITAL_DOWN)) {
+} else if (master.get_digital(DIGITAL_Y)) {
 intake.move_voltage(12000);
+claw.move_voltage(-12000);
 		} else {
 intake.move_voltage(0);
 		}

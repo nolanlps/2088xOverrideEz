@@ -50,165 +50,35 @@ void default_constants() {
 
 
 void left3pin() {
-    chassis.odom_xyt_set(-5_in, 3_in, -30.5_deg);
+ chassis.odom_xyt_set(-5_in, 3_in, -28.5_deg);
   intake.move_voltage(12000);
   pros::delay(500);
   intake.move_voltage(0);
   chassis.pid_drive_set(12, DRIVE_SPEED);
-  claw.move_voltage(-12000);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(-90, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-10, DRIVE_SPEED);
-  chassis.pid_wait_quick_chain();
-  pros::delay(100);
-  wristFlip(); // score preload
-  pros::delay(300);
-  chassis.pid_wait_quick_chain();
-
-
-  chassis.pid_drive_set(6, DRIVE_SPEED);
-  chassis.pid_wait_quick_chain();
-  wristFlip();
-  chassis.pid_turn_set(-144, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-17.2, DRIVE_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-6, 30);
-  pros::delay(280);
-  claw.move_voltage(12000);
-  chassis.pid_wait_quick_chain(); //grab second pin
-
-
-  chassis.pid_turn_set(-10, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  lift.move_voltage(9000);
-  pros::delay(600);
-  lift.move_voltage(0);
-  chassis.pid_drive_set(-14.5, 80);
-  chassis.pid_wait_quick_chain();
-  lift.move_voltage(-3000);
-  pros::delay(400);
-  claw.move_voltage(-12000);
-pros::delay(500);
-
-  chassis.pid_drive_set(13, DRIVE_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(-51, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-20.5, DRIVE_SPEED);
-    chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-8, 60);
-  pros::delay(300);
-  claw.move_voltage(12000);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-6, DRIVE_SPEED);
-    lift.move_voltage(9000);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(83, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-
-  pros::delay(200);
-  lift.move_voltage(0);
-  chassis.pid_drive_set(-19, 80);
-  chassis.pid_wait_quick_chain();
-  lift.move_voltage(-6000);
-  pros::delay(400);
-  claw.move_voltage(-12000);
-
-
-}
-
-void right3pin() {
-      chassis.odom_xyt_set(5_in, 3_in, 24.5_deg);
-  intake.move_voltage(12000);
-  pros::delay(750);
-  intake.move_voltage(0);
-  chassis.pid_drive_set(11.5, DRIVE_SPEED);
-  claw.move_voltage(-12000);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(90, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-12, DRIVE_SPEED);
-  chassis.pid_wait_quick_chain();
-  pros::delay(100);
-  wristFlip(); // score preload
-
-  chassis.pid_wait_quick_chain();
-
-
-  chassis.pid_drive_set(4, DRIVE_SPEED);
-  chassis.pid_wait_quick_chain();
-  wristFlip();
-  chassis.pid_turn_set(153.5, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-16, DRIVE_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-6, 30);
-  pros::delay(250);
-  claw.move_voltage(12000);
-  chassis.pid_wait_quick_chain(); //grab second pin
- 
-
-  chassis.pid_turn_set(15, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  lift.move_voltage(9000);
-  pros::delay(600);
-  lift.move_voltage(0);
-  chassis.pid_drive_set(-16, 80);
-  chassis.pid_wait_quick_chain();
-  lift.move_voltage(-3000);
-  pros::delay(400);
-  claw.move_voltage(-12000);
-pros::delay(500);
-
-  chassis.pid_drive_set(11, DRIVE_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(56, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-18, DRIVE_SPEED);
-    chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-8, 60);
-  pros::delay(300);
-  claw.move_voltage(12000);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-6, DRIVE_SPEED);
-    lift.move_voltage(9000);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_turn_set(-83, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-
-  pros::delay(200);
-  lift.move_voltage(0);
-  chassis.pid_drive_set(-21, 80);
-  chassis.pid_wait_quick_chain();
-  lift.move_voltage(-6000);
-  pros::delay(400);
-  claw.move_voltage(-12000);
-}
-
-void skills() {
-    chassis.odom_xyt_set(-5_in, 3_in, -28.5_deg);
-  intake.move_voltage(12000);
-  pros::delay(500);
-  intake.move_voltage(0);
-  chassis.pid_drive_set(12, DRIVE_SPEED);
-  claw.move_voltage(-12000);
+  // claw.move_voltage(-12000);
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_set(-89, TURN_SPEED);
+
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-10, DRIVE_SPEED);
+  chassis.pid_drive_set(-14, DRIVE_SPEED);
+    lift.move_voltage(8000);
+    pros::delay(350);
+  lift.move_voltage(0);
   chassis.pid_wait_quick_chain();
+
   pros::delay(100);
-  wristFlip(); // score preload
-  pros::delay(300);
+
+
+  lift.set_brake_mode(MOTOR_BRAKE_COAST);
+  pros::delay(600);
+  claw.move_voltage(-12000);
   chassis.pid_wait_quick_chain();
 
-
+  lift.set_brake_mode(MOTOR_BRAKE_HOLD);
   chassis.pid_drive_set(6, DRIVE_SPEED);
   chassis.pid_wait_quick_chain();
-  wristFlip();
-  chassis.pid_turn_set(-144, TURN_SPEED);
+
+  chassis.pid_turn_set(-147, TURN_SPEED);
   chassis.pid_wait_quick_chain();
   chassis.pid_drive_set(-17.2, DRIVE_SPEED);
   chassis.pid_wait_quick_chain();
@@ -226,11 +96,11 @@ void skills() {
   chassis.pid_drive_set(-14.5, 80);
   chassis.pid_wait_quick_chain();
   lift.move_voltage(-3000);
-  pros::delay(400);
+  pros::delay(1000);
   claw.move_voltage(-12000);
 pros::delay(500);
 
-  chassis.pid_drive_set(13, DRIVE_SPEED);
+  chassis.pid_drive_set(15, DRIVE_SPEED);
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_set(-51, TURN_SPEED);
   chassis.pid_wait_quick_chain();
@@ -254,27 +124,212 @@ pros::delay(500);
   pros::delay(800);
   claw.move_voltage(-12000);
 
-  chassis.pid_wait();
-  chassis.pid_drive_set(24, DRIVE_SPEED);
-  chassis.pid_wait_quick_chain();
-  claw.move_voltage(12000);
-  chassis.pid_turn_set(0, TURN_SPEED);
-  chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-8, 50);
   chassis.pid_wait_quick_chain();
 
-  chassis.pid_drive_set(8, DRIVE_SPEED);
+  chassis.pid_drive_set(5, 60);
+chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(32, TURN_SPEED);
+  claw.move_voltage(12000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-14, 30);
+  chassis.pid_wait_quick_chain();
+  
+}
+
+void right3pin() {
+  chassis.odom_xyt_set(5_in, 3_in, 28.5_deg);
+  intake.move_voltage(12000);
+  pros::delay(800);
+  intake.move_voltage(0);
+  chassis.pid_drive_set(12, DRIVE_SPEED);
+  // claw.move_voltage(-12000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(89, TURN_SPEED);
+
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-14, DRIVE_SPEED);
+    lift.move_voltage(8000);
+    pros::delay(350);
+  lift.move_voltage(0);
+  chassis.pid_wait_quick_chain();
+
+  pros::delay(100);
+
+
+  lift.set_brake_mode(MOTOR_BRAKE_COAST);
+  pros::delay(600);
+  claw.move_voltage(-12000);
+  chassis.pid_wait_quick_chain();
+
+  lift.set_brake_mode(MOTOR_BRAKE_HOLD);
+  chassis.pid_drive_set(6, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_turn_set(150.5, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-17.2, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-6, 30);
+  pros::delay(280);
+  claw.move_voltage(12000);
+  chassis.pid_wait_quick_chain(); //grab second pin
+
+
+  chassis.pid_turn_set(10, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  lift.move_voltage(9000);
+  pros::delay(600);
+  lift.move_voltage(0);
+  chassis.pid_drive_set(-14.5, 80);
+  chassis.pid_wait_quick_chain();
+  lift.move_voltage(-3000);
+  pros::delay(1000);
+  claw.move_voltage(-12000);
+pros::delay(500);
+
+  chassis.pid_drive_set(15, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(51, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-20.5, DRIVE_SPEED);
+    chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-8, 60);
+  pros::delay(300);
+  claw.move_voltage(12000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-6, DRIVE_SPEED);
+    lift.move_voltage(9000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(-84, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+
+  pros::delay(200);
+  lift.move_voltage(0);
+  chassis.pid_drive_set(-21, 80);
+  chassis.pid_wait_quick_chain();
+  lift.move_voltage(-3000);
+  pros::delay(800);
+  claw.move_voltage(-12000);
+
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(5, 60);
+chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(-32, TURN_SPEED);
+  claw.move_voltage(12000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-14, 30);
+  chassis.pid_wait_quick_chain();
+}
+
+void skills() {
+ chassis.odom_xyt_set(-5_in, 3_in, -28.5_deg);
+  intake.move_voltage(12000);
+  pros::delay(500);
+  intake.move_voltage(0);
+  chassis.pid_drive_set(12, DRIVE_SPEED);
+  // claw.move_voltage(-12000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(-89, TURN_SPEED);
+
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-14, DRIVE_SPEED);
+    lift.move_voltage(8000);
+    pros::delay(350);
+  lift.move_voltage(0);
+  chassis.pid_wait_quick_chain();
+
+  pros::delay(100);
+
+
+  lift.set_brake_mode(MOTOR_BRAKE_COAST);
+  pros::delay(600);
+  claw.move_voltage(-12000);
+  chassis.pid_wait_quick_chain();
+
+  lift.set_brake_mode(MOTOR_BRAKE_HOLD);
+  chassis.pid_drive_set(6, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_turn_set(-147, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-17.2, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-6, 30);
+  pros::delay(280);
+  claw.move_voltage(12000);
+  chassis.pid_wait_quick_chain(); //grab second pin
+
+
+  chassis.pid_turn_set(-10, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  lift.move_voltage(9000);
+  pros::delay(600);
+  lift.move_voltage(0);
+  chassis.pid_drive_set(-14.5, 80);
+  chassis.pid_wait_quick_chain();
+  lift.move_voltage(-3000);
+  pros::delay(1000);
+  claw.move_voltage(-12000);
+pros::delay(500);
+
+  chassis.pid_drive_set(15, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(-51, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-20.5, DRIVE_SPEED);
+    chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-8, 60);
+  pros::delay(300);
+  claw.move_voltage(12000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-6, DRIVE_SPEED);
+    lift.move_voltage(9000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(83, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+
+  pros::delay(200);
+  lift.move_voltage(0);
+  chassis.pid_drive_set(-19, 80);
+  chassis.pid_wait_quick_chain();
+  lift.move_voltage(-3000);
+  pros::delay(800);
+  claw.move_voltage(-12000);
+
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(5, 60);
+chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(31.5, TURN_SPEED);
+  claw.move_voltage(12000);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-20, 27);
+  chassis.pid_wait_quick_chain();
+
+  chassis.pid_drive_set(15, DRIVE_SPEED);
+
   chassis.pid_wait_quick_chain();
   chassis.pid_turn_set(90, TURN_SPEED);
+      lift.move_voltage(12000);
+      pros::delay(700);
+      lift.move_voltage(0);
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-18, DRIVE_SPEED);
-    lift.move_voltage(8000);
+  chassis.pid_drive_set(-8, 50);
+
   chassis.pid_wait_quick_chain();
-  chassis.pid_drive_set(-6, 80);
-  chassis.pid_wait_quick_chain();
-  lift.move_voltage(-4000);
   pros::delay(200);
-  claw.move_voltage(-12000);
+  lift.move_voltage(-3000);
+  pros::delay(300);
+  claw.move_voltage(-120000);
+  pros::delay(200);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(24, DRIVE_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_turn_set(0, TURN_SPEED);
+  chassis.pid_wait_quick_chain();
+  chassis.pid_drive_set(-8, 40);
+  chassis.pid_wait_quick_chain();
 }
 
 
